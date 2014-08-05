@@ -30,7 +30,7 @@ curl https://$SAUCE_USERNAME:$SAUCE_ACCESS_KEY@saucelabs.com/rest/v1/users/$SAUC
 Or add an `Authorization` header to the request like this:
 ```bash
 curl https://saucelabs.com/rest/v1/users/$SAUCE_USERNAME \
--u $SAUCE_USERNAME:$SAUCE_ACCESS_KEY 
+-u $SAUCE_USERNAME:$SAUCE_ACCESS_KEY
 ```
 
 Note that all below endpoints default to a `GET` request unless specified, and all `POST` requests **must** have the `Content-Type` header set to `application/json`.
@@ -54,17 +54,17 @@ curl https://saucelabs.com/rest/v1/users/$SAUCE_USERNAME \
 **Example Response:**
 ```json
 {
-    "access_key": "YOUR_ACCESS_KEY", 
-    "can_run_manual": true, 
-    "email": "YOUR_EMAIL", 
-    "id": "YOUR_SAUCE_USERNAME", 
-    "mac_manual_minutes": "YOUR_MAC_MANUAL_MINUTES", 
-    "mac_minutes": "YOUR_MAC_MINUTES", 
-    "manual_minutes": "YOUR_MANUAL_MINUTES", 
-    "minutes": "YOUR_MINUTES", 
-    "name": "YOUR_NAME", 
-    "subscribed": true, 
-    "user_type": "admin"
+    "access_key": "YOUR_ACCESS_KEY",
+    "can_run_manual": true,
+    "email": "YOUR_EMAIL",
+    "id": "YOUR_USERNAME",
+    "mac_manual_minutes": "YOUR_MAC_MANUAL_MINUTES",
+    "mac_minutes": "YOUR_MAC_MINUTES",
+    "manual_minutes": "YOUR_MANUAL_MINUTES",
+    "minutes": "YOUR_MINUTES",
+    "name": "YOUR_NAME",
+    "subscribed": true,
+    "user_type": "free"
 }
 ```
 
@@ -94,16 +94,16 @@ curl https://saucelabs.com/rest/v1/users/$SAUCE_USERNAME \
 **Example Response:**
 ```json
 {
-    "access_key": "SUBACCOUNT_ACCESS_KEY", 
-    "can_run_manual": true, 
-    "email": "SUBACCOUNT_EMAIL_ADDRESS", 
-    "id": "YOUR_USERNAME", 
-    "mac_manual_minutes": "YOUR_MAC_MANUAL_MINUTES", 
-    "mac_minutes": "YOUR_MAC_MINUTES", 
-    "manual_minutes": "YOUR_MANUAL_MINUTES", 
-    "minutes": "YOUR_MINUTES",
-    "name": "SUBACCOUNT_USERNAME", 
-    "subscribed": false, 
+    "access_key": "SUBACCOUNT_ACCESS_KEY",
+    "can_run_manual": true,
+    "email": "SUBACCOUNT_EMAIL_ADDRESS",
+    "id": "SUBACCOUNT_USERNAME",
+    "mac_manual_minutes": "SUBACCOUNT_MAC_MANUAL_MINUTES",
+    "mac_minutes": "SUBACCOUNT_MAC_MINUTES",
+    "manual_minutes": "SUBACCOUNT_MANUAL_MINUTES",
+    "minutes": "SUBACCOUNT_MINUTES",
+    "name": "SUBACCOUNT_USERS_NAME",
+    "subscribed": false,
     "user_type": "subaccount"
 }
 ```
@@ -124,31 +124,31 @@ curl https://saucelabs.com/rest/v1/users/$SAUCE_USERNAME/concurrency \
 ```json
 {
     "concurrency": {
-        "parent_account_username": {
+        "YOUR_USERNAME": {
             "current": {
-                "mac": 0, 
-                "manual": 0, 
-                "overall": 0
-            }, 
+                "mac": 0,
+                "manual": 1,
+                "overall": 1
+            },
             "remaining": {
-                "mac": 100, 
-                "manual": 5, 
-                "overall": 100
+                "mac": 3,
+                "manual": 2,
+                "overall": 3
             }
-        }, 
-        "sub_account_username": {
+        },
+        "YOUR_SUBACCOUNT_USERNAME": {
             "current": {
-                "mac": 0, 
-                "manual": 0, 
-                "overall": 0
-            }, 
+                "mac": 1,
+                "manual": 0,
+                "overall": 1
+            },
             "remaining": {
-                "mac": 100, 
-                "manual": 5, 
-                "overall": 100
+                "mac": 0,
+                "manual": 1,
+                "overall": 1
             }
         }
-    }, 
+    },
     "timestamp": 0
 }
 ```
@@ -171,21 +171,21 @@ curl https://saucelabs.com/rest/v1/$SAUCE_USERNAME/activity \
 ```json
 {
     "subaccounts": {
-        "parent_account_username": {
-            "all": 0, 
-            "in progress": 0, 
-            "queued": 0
+        "YOUR_USERNAME": {
+            "all": 1,
+            "in progress": 0,
+            "queued": 1
         },
-        "sub_account_username": {
-            "all": 0, 
-            "in progress": 0, 
+        "YOUR_SUBACCOUNT_USERNAME": {
+            "all": 1,
+            "in progress": 1,
             "queued": 0
         }
-    }, 
+    },
     "totals": {
-        "all": 0, 
-        "in progress": 0, 
-        "queued": 0
+        "all": 2,
+        "in progress": 1,
+        "queued": 1
     }
 }
 ```
@@ -209,28 +209,28 @@ curl https://saucelabs.com/rest/v1/users/$SAUCE_USERNAME/usage \
 {
     "usage": [
         [
-            "2011-3-18", 
+            "2014-3-18",
             [
-                2, 
+                2,
                 38
             ]
-        ], 
+        ],
         [
-            "2011-3-31", 
+            "2014-3-31",
             [
-                5, 
+                5,
                 5533
             ]
-        ], 
+        ],
         [
-            "2011-4-1", 
+            "2014-4-1",
             [
-                7, 
+                7,
                 5076
             ]
         ]
-    ], 
-    "username": "demo-user"
+    ],
+    "username": "YOUR_USERNAME"
 }
 ```
 
@@ -253,7 +253,7 @@ curl https://saucelabs.com/rest/v1/$SAUCE_USERNAME/jobs \
 [
     {
         "id": "b3b6ee91d8b74b5cb5224388ce6d9935"
-    }, 
+    },
     {
         "id": "e6f8f03292e44ff4a3e362ee75b58487"
     }
@@ -312,27 +312,27 @@ https://saucelabs.com/rest/v1/$SAUCE_USERNAME/jobs?full=true
 ```json
 [
     {
-        "breakpointed": null, 
-        "browser": "android", 
-        "browser_short_version": "4.3", 
-        "browser_version": "4.3.", 
-        "build": null, 
-        "commands_not_successful": 4, 
-        "creation_time": 1406237583, 
-        "custom-data": null, 
-        "end_time": 1406237603, 
-        "error": null, 
-        "id": "JOB_ID", 
-        "log_url": "https://assets.saucelabs.com/jobs/JOB_ID/selenium-server.log", 
-        "name": "Nexus4 AndroidDriver test", 
-        "os": "Linux", 
-        "owner": "SAUCE_USERNAME", 
-        "passed": null, 
-        "proxied": false, 
-        "public": null, 
-        "start_time": 1406237584, 
-        "status": "complete", 
-        "tags": [], 
+        "breakpointed": null,
+        "browser": "android",
+        "browser_short_version": "4.3",
+        "browser_version": "4.3.",
+        "build": null,
+        "commands_not_successful": 4,
+        "creation_time": 1406237583,
+        "custom-data": null,
+        "end_time": 1406237603,
+        "error": null,
+        "id": "JOB_ID",
+        "log_url": "https://assets.saucelabs.com/jobs/JOB_ID/selenium-server.log",
+        "name": "Nexus4 AndroidDriver test",
+        "os": "Linux",
+        "owner": "YOUR_USERNAME",
+        "passed": null,
+        "proxied": false,
+        "public": null,
+        "start_time": 1406237584,
+        "status": "complete",
+        "tags": [],
         "video_url": "https://assets.saucelabs.com/jobs/JOB_ID/video.flv"
     }
 ]
@@ -397,31 +397,31 @@ https://saucelabs.com/rest/v1/$SAUCE_USERNAME/jobs/YOUR_JOB_ID
 **Example Response:**
 ```json
 {
-    "breakpointed": null, 
-    "browser": "firefox", 
-    "browser_short_version": "28", 
-    "browser_version": "28.0.", 
-    "build": null, 
-    "commands_not_successful": 13, 
-    "creation_time": 1402525781, 
-    "custom-data": null, 
-    "end_time": 1402525814, 
-    "error": null, 
-    "id": "YOUR_JOB_ID", 
-    "log_url": "https://assets.saucelabs.com/jobs/YOUR_JOB_ID/selenium-server.log", 
-    "manual": false, 
-    "name": "Selenium Tests", 
-    "os": "Mac 10.9", 
-    "owner": "YOUR_USERNAME", 
-    "passed": null, 
-    "proxied": true, 
-    "public": null, 
-    "start_time": 1402525781, 
-    "status": "complete", 
+    "breakpointed": null,
+    "browser": "firefox",
+    "browser_short_version": "30",
+    "browser_version": "30.0.",
+    "build": null,
+    "commands_not_successful": 13,
+    "creation_time": 1402525781,
+    "custom-data": null,
+    "end_time": 1402525814,
+    "error": null,
+    "id": "YOUR_JOB_ID",
+    "log_url": "https://assets.saucelabs.com/jobs/YOUR_JOB_ID/selenium-server.log",
+    "manual": false,
+    "name": "Selenium Tests",
+    "os": "Mac 10.9",
+    "owner": "YOUR_USERNAME",
+    "passed": null,
+    "proxied": true,
+    "public": null,
+    "start_time": 1402525781,
+    "status": "complete",
     "tags": [
-        "Branch: master", 
-        "Commit: 23aef"
-    ], 
+        "Branch: master",
+        "Commit: 598baae9b3daf3faa3692f00027d7d25aa80f7df"
+    ],
     "video_url": "https://assets.saucelabs.com/jobs/YOUR_JOB_ID/video.flv"
 }
 ```
@@ -490,12 +490,12 @@ Get details about the static assets collected for a specific job.
 
 URL: `https://saucelabs.com/rest/v1/:username/jobs/:job_id/assets`
 
-**Response fields:** (each of these fields will be set to "null" if the specific asset isn't captured for a job):
+**Response Fields:** (each of these fields will be set to "null" if the specific asset isn't captured for a job):
 
 * `sauce-log`: [string] Name of the Sauce log recorded for a job
+* `screenshots`: [array of strings] List of screenshot names captured by a job
 * `selenium-log`: [string] Name of the selenium Server log file produced by a job
 * `video`: [string] Name of the video file name recorded for a job
-* `screenshots`: [array of strings] List of screenshot names captured by a job
 
 **Example Request:**
 ```bash
@@ -506,12 +506,12 @@ https://saucelabs.com/rest/v1/$SAUCE_USERNAME/jobs/YOUR_JOB_ID/assets
 **Example Response:**
 ```json
 {
-    "sauce-log": "log.json", 
+    "sauce-log": "log.json",
     "screenshots": [
-        "0000screenshot.png", 
+        "0000screenshot.png",
         "0001screenshot.png"
-    ], 
-    "selenium-log": "selenium-server.log", 
+    ],
+    "selenium-log": "selenium-server.log",
     "video": "video.flv"
 }
 ```
@@ -568,7 +568,7 @@ curl https://saucelabs.com/rest/v1/$SAUCE_USERNAME/tunnels \
 ```
 
 **Example Response:**
-    
+
 ```json
 ["530c591c4666465aaf2e1097baff6324"]
 ```
@@ -595,38 +595,38 @@ https://saucelabs.com/rest/v1/$SAUCE_USERNAME/tunnels/YOUR_TUNNEL_ID
 
 ```json
 {
-    "creation_time": 1406908737, 
-    "direct_domains": null, 
+    "creation_time": 1406908737,
+    "direct_domains": null,
     "domain_names": [
         "sauce-connect.proxy"
-    ], 
-    "host": "maki77040.miso.saucelabs.com", 
-    "id": "60a44a71ef8e4fa5bceb376d5e8101f4", 
+    ],
+    "host": "maki77040.miso.saucelabs.com",
+    "id": "YOUR_TUNNEL_ID",
     "metadata": {
-        "Build": "35", 
-        "OwnerHost": "127.0.0.1", 
+        "Build": "35",
+        "OwnerHost": "127.0.0.1",
         "OwnerPorts": [
             "60063"
-        ], 
-        "Platform": "Java-1.6.0_65-Java_HotSpot-TM-_64-Bit_Server_VM,_20.65-b04-462,_Apple_Inc.-on-Mac_OS_X-10.9.3-x86_64", 
+        ],
+        "Platform": "Java-1.6.0_65-Java_HotSpot-TM-_64-Bit_Server_VM,_20.65-b04-462,_Apple_Inc.-on-Mac_OS_X-10.9.3-x86_64",
         "Ports": [
             "80"
-        ], 
-        "PythonVersion": "2.5.1", 
-        "Release": "3.0-r24", 
-        "ScriptName": "sauce_connect", 
+        ],
+        "PythonVersion": "2.5.1",
+        "Release": "3.0-r24",
+        "ScriptName": "sauce_connect",
         "ScriptRelease": 35
-    }, 
-    "no_ssl_bump_domains": null, 
-    "owner": "SAUCE_USERNAME", 
-    "shared_tunnel": false, 
-    "shutdown_time": null, 
-    "ssh_port": 443, 
-    "status": "running", 
-    "tunnel_identifier": null, 
-    "use_caching_proxy": true, 
-    "use_kgp": true, 
-    "user_shutdown": null, 
+    },
+    "no_ssl_bump_domains": null,
+    "owner": "SAUCE_USERNAME",
+    "shared_tunnel": false,
+    "shutdown_time": null,
+    "ssh_port": 443,
+    "status": "running",
+    "tunnel_identifier": null,
+    "use_caching_proxy": true,
+    "use_kgp": true,
+    "user_shutdown": null,
     "vm_version": null
 }
 ```
@@ -663,8 +663,8 @@ curl http://saucelabs.com/rest/v1/info/status
 **Example Response:**
 ```json
 {
-    "service_operational": true, 
-    "status_message": "Basic service status checks passed.", 
+    "service_operational": true,
+    "status_message": "Basic service status checks passed.",
     "wait_time": 0.5
 }
 ```
@@ -691,116 +691,35 @@ curl http://saucelabs.com/rest/v1/info/platforms/appium
 ```json
 [
     {
-        "api_name": "ipad", 
-        "automation_backend": "appium", 
-        "device": "ipad", 
-        "latest_stable_version": "", 
-        "long_name": "iPad", 
-        "long_version": "7.0.", 
-        "os": "Mac 10.9", 
+        "api_name": "ipad",
+        "automation_backend": "appium",
+        "device": "ipad",
+        "latest_stable_version": "",
+        "long_name": "iPad",
+        "long_version": "7.0.",
+        "os": "Mac 10.9",
         "short_version": "7.0"
-    }, 
-    {
-        "api_name": "ipad", 
-        "automation_backend": "appium", 
-        "device": "ipad", 
-        "latest_stable_version": "", 
-        "long_name": "iPad", 
-        "long_version": "7.1.", 
-        "os": "Mac 10.9", 
-        "short_version": "7.1"
-    }, 
-    {
-        "api_name": "iphone", 
-        "automation_backend": "appium", 
-        "device": "iphone", 
-        "latest_stable_version": "", 
-        "long_name": "iPhone", 
-        "long_version": "7.0.", 
-        "os": "Mac 10.9", 
-        "short_version": "7.0"
-    }, 
-    {
-        "api_name": "iphone", 
-        "automation_backend": "appium", 
-        "device": "iphone", 
-        "latest_stable_version": "", 
-        "long_name": "iPhone", 
-        "long_version": "7.1.", 
-        "os": "Mac 10.9", 
-        "short_version": "7.1"
-    }, 
-    {
-        "api_name": "ipad", 
-        "automation_backend": "appium", 
-        "device": "ipad", 
-        "latest_stable_version": "", 
-        "long_name": "iPad", 
-        "long_version": "6.1.", 
-        "os": "Mac 10.8", 
-        "short_version": "6.1"
-    }, 
-    {
-        "api_name": "iphone", 
-        "automation_backend": "appium", 
-        "device": "iphone", 
-        "latest_stable_version": "", 
-        "long_name": "iPhone", 
-        "long_version": "6.1.", 
-        "os": "Mac 10.8", 
-        "short_version": "6.1"
-    }, 
-    {
-        "api_name": "android", 
-        "automation_backend": "appium", 
-        "device": "android", 
-        "latest_stable_version": "", 
-        "long_name": "Android", 
-        "long_version": "2.3.7.", 
-        "os": "Linux", 
-        "short_version": "2.3"
-    }, 
-    {
-        "api_name": "android", 
-        "automation_backend": "appium", 
-        "device": "android", 
-        "latest_stable_version": "", 
-        "long_name": "Android", 
-        "long_version": "4.0.4.", 
-        "os": "Linux", 
-        "short_version": "4.0"
-    }, 
-    {
-        "api_name": "android", 
-        "automation_backend": "appium", 
-        "device": "android", 
-        "latest_stable_version": "", 
-        "long_name": "Android", 
-        "long_version": "4.1.", 
-        "os": "Linux", 
-        "short_version": "4.1"
-    }, 
-    {
-        "api_name": "android", 
-        "automation_backend": "appium", 
-        "device": "android", 
-        "latest_stable_version": "", 
-        "long_name": "Android", 
-        "long_version": "4.2.", 
-        "os": "Linux", 
-        "short_version": "4.2"
-    }, 
-    {
-        "api_name": "android", 
-        "automation_backend": "appium", 
-        "device": "android", 
-        "latest_stable_version": "", 
-        "long_name": "Android", 
-        "long_version": "4.3.", 
-        "os": "Linux", 
-        "short_version": "4.3"
     },
-    ...
+    {
+        "api_name": "ipad",
+        "automation_backend": "appium",
+        "device": "ipad",
+        "latest_stable_version": "",
+        "long_name": "iPad",
+        "long_version": "7.1.",
+        "os": "Mac 10.9",
+        "short_version": "7.1"
+    },
+    {
+        "api_name": "android",
+        "automation_backend": "appium",
+        "device": "android",
+        "latest_stable_version": "",
+        "long_name": "Android",
+        "long_version": "4.3.",
+        "os": "Linux",
+        "short_version": "4.3"
+    }
 ]
 ```
 
@@ -829,19 +748,19 @@ curl -u $SAUCE_USERNAME:$SAUCE_ACCESS_KEY \
 -X POST \
 https://saucelabs.com/rest/v1/users/$SAUCE_USERNAME \
 -H 'Content-Type: application/json' \
--d '{"username": "$SAUCE_USERNAME_subaccount", 
-        "password": "subaccount-password", 
-        "name": "$SAUCE_USERNAME_subaccount_name", 
-        "email": "subaccount-email-address", 
+-d '{"username": "$SAUCE_USERNAME_subaccount",
+        "password": "subaccount-password",
+        "name": "$SAUCE_USERNAME_subaccount_name",
+        "email": "subaccount-email-address",
         "plan": "free"}'
 ```
 
 **Example Response:**
 ```json
 {
-    "access_key": "subaccount-api-key", 
-    "id": "new-subaccount-username", 
-    "minutes": 200, 
+    "access_key": "subaccount-api-key",
+    "id": "new-subaccount-username",
+    "minutes": 200,
     "plan": "free"
 }
 ```
@@ -985,7 +904,7 @@ curl https://saucelabs.com/rest/v1/$SAUCE_USERNAME/js-tests \
 ```json
 {
     "js tests": [
-        "064df78366ea4b25b32f88878c9d7aa4", 
+        "064df78366ea4b25b32f88878c9d7aa4",
         "1e5ed949711545bd952456ac37479ada"
     ]
 }
@@ -1023,92 +942,92 @@ curl https://saucelabs.com/rest/v1/$SAUCE_USERNAME/js-tests/status \
 **Example Response:**
 ```json
 {
-    "completed": true, 
+    "completed": true,
     "js tests": [
         {
-            "id": "f5ab14de2d2941dda402fefe79771968", 
-            "job_id": "4045ce18648a42718c738b55662ccbe0", 
+            "id": "f5ab14de2d2941dda402fefe79771968",
+            "job_id": "4045ce18648a42718c738b55662ccbe0",
             "platform": [
-                "Windows 7", 
-                "firefox", 
+                "Windows 7",
+                "firefox",
                 "27"
-            ], 
+            ],
             "result": {
-                "durationSec": 0.004, 
-                "passed": true, 
+                "durationSec": 0.004,
+                "passed": true,
                 "suites": [
                     {
-                        "description": "Player", 
-                        "durationSec": 0.004, 
-                        "passed": true, 
+                        "description": "Player",
+                        "durationSec": 0.004,
+                        "passed": true,
                         "specs": [
                             {
-                                "description": "should be able to play a Song", 
-                                "durationSec": 0.002, 
-                                "failedCount": 0, 
-                                "passed": true, 
-                                "passedCount": 2, 
-                                "skipped": false, 
+                                "description": "should be able to play a Song",
+                                "durationSec": 0.002,
+                                "failedCount": 0,
+                                "passed": true,
+                                "passedCount": 2,
+                                "skipped": false,
                                 "totalCount": 2
-                            }, 
+                            },
                             {
-                                "description": "tells the current song if the user has made it a favorite", 
-                                "durationSec": 0.001, 
-                                "failedCount": 0, 
-                                "passed": true, 
-                                "passedCount": 1, 
-                                "skipped": false, 
+                                "description": "tells the current song if the user has made it a favorite",
+                                "durationSec": 0.001,
+                                "failedCount": 0,
+                                "passed": true,
+                                "passedCount": 1,
+                                "skipped": false,
                                 "totalCount": 1
                             }
-                        ], 
+                        ],
                         "suites": [
                             {
-                                "description": "when song has been paused", 
-                                "durationSec": 0.001, 
-                                "passed": true, 
+                                "description": "when song has been paused",
+                                "durationSec": 0.001,
+                                "passed": true,
                                 "specs": [
                                     {
-                                        "description": "should indicate that the song is currently paused", 
-                                        "durationSec": 0.001, 
-                                        "failedCount": 0, 
-                                        "passed": true, 
-                                        "passedCount": 2, 
-                                        "skipped": false, 
+                                        "description": "should indicate that the song is currently paused",
+                                        "durationSec": 0.001,
+                                        "failedCount": 0,
+                                        "passed": true,
+                                        "passedCount": 2,
+                                        "skipped": false,
                                         "totalCount": 2
-                                    }, 
+                                    },
                                     {
-                                        "description": "should be possible to resume", 
-                                        "durationSec": 0, 
-                                        "failedCount": 0, 
-                                        "passed": true, 
-                                        "passedCount": 2, 
-                                        "skipped": false, 
+                                        "description": "should be possible to resume",
+                                        "durationSec": 0,
+                                        "failedCount": 0,
+                                        "passed": true,
+                                        "passedCount": 2,
+                                        "skipped": false,
                                         "totalCount": 2
                                     }
-                                ], 
+                                ],
                                 "suites": []
-                            }, 
+                            },
                             {
-                                "description": "#resume", 
-                                "durationSec": 0, 
-                                "passed": true, 
+                                "description": "#resume",
+                                "durationSec": 0,
+                                "passed": true,
                                 "specs": [
                                     {
-                                        "description": "should throw an exception if song is already playing", 
-                                        "durationSec": 0, 
-                                        "failedCount": 0, 
-                                        "passed": true, 
-                                        "passedCount": 1, 
-                                        "skipped": false, 
+                                        "description": "should throw an exception if song is already playing",
+                                        "durationSec": 0,
+                                        "failedCount": 0,
+                                        "passed": true,
+                                        "passedCount": 1,
+                                        "skipped": false,
                                         "totalCount": 1
                                     }
-                                ], 
+                                ],
                                 "suites": []
                             }
                         ]
                     }
                 ]
-            }, 
+            },
             "url": "https://assets.saucelabs.com/jobs/4045ce18648a42718c738b55662ccbe0"
         }
     ]
@@ -1135,11 +1054,11 @@ curl http://saucelabs.com/rest/v1/bugs/types
 **Example Response:**
 ```json
 [
-  {
-    "id": "bug-type-example-id",
-    "name": "Bug-example-name",
-    "description": "Bug example description"
-  }
+    {
+        "description": "A Sauce Manual Testing bug",
+        "id": "1",
+        "name": "Bug"
+    }
 ]
 ```
 
@@ -1157,16 +1076,51 @@ curl http://saucelabs.com/rest/v1/bugs/types/YOUR_BUG_TYPE_ID
 **Example Response:**
 ```json
 [
-  {
-    "type": "string",
-    "name": "Field-name",
-    "id": "Field-id"
-  },
-  {
-    "type": "int",
-    "name": "Field-name",
-    "id": "Field-id"
-  }
+    {
+        "id": "Browser",
+        "name": "Browser",
+        "type": "string"
+    },
+    {
+        "id": "CreationTime",
+        "name": "Creation Time",
+        "type": "int"
+    },
+    {
+        "id": "Description",
+        "name": "Description",
+        "type": "text"
+    },
+    {
+        "id": "Job",
+        "name": "Sauce Labs Test ID",
+        "type": "string"
+    },
+    {
+        "id": "OS",
+        "name": "Operating System",
+        "type": "string"
+    },
+    {
+        "id": "Title",
+        "name": "Bug Title",
+        "type": "string"
+    },
+    {
+        "id": "ScreenShotEmbedURL",
+        "name": "ScreenShot URL",
+        "type": "string"
+    },
+    {
+        "id": "VideoEmbedURL",
+        "name": "Video URL",
+        "type": "string"
+    },
+    {
+        "id": "BugEmbedURL",
+        "name": "Manual Test Bug URL",
+        "type": "string"
+    }
 ]
 ```
 
