@@ -588,7 +588,7 @@ curl https://saucelabs.com/rest/v1/sauceUsername/js-tests \
 
 Hosting your tests on your LAN or your laptop? You'll need to run [Sauce Connect](/reference/sauce-connect/) to bridge Sauce Labs to your local network. Optional parameters related to Sauce Connect include:
 
-* `tunnel_identifier`: specifies the ID of a specific tunnel when using multiple Sauce Connect tunnels.
+* `tunnel-identifier`: specifies the ID of a specific tunnel when using multiple Sauce Connect tunnels.
 * `parent_tunnel`: specifies the username of a parent account whose shared Sauce Connect tunnel your tests should use.
 
 Any other parameters get passed on as [Optional Desired Capabilities](/reference/test-configuration/#webdriver-api) for the selenium server. This means you can set things like: `max-duration`
